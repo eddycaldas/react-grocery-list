@@ -59,17 +59,28 @@ class App extends Component {
         </div>
         <button 
           type="button" 
-          className="btn mb-3 btn-lg btn-block btn-primary"
+          className="btn mb-3 btn-lg btn-block btn-info"
           onClick={this.itemAdding}>
-            Primary
+            Add item
         </button>
         
         <ul className="list-group">
             {this.state.items.map((item) => {
               return <li 
+              
                         key={item.id}  
                         className="list-group-item"
-                      >{item.name}</li>
+                     >
+                        <button type="button" className="btn mr-3 btn-danger">
+                          <span className="glyphicon glyphicon-trash"></span>
+                        </button>      
+                            {item.name}
+                        <button type="button" className="btn ml-3 btn-info">
+                          <span className="glyphicon glyphicon-pencil"></span>
+                        </button>  
+                     </li>
+              
+                    
             })}          
         </ul>
         
