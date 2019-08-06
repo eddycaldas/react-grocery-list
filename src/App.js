@@ -40,7 +40,8 @@ class App extends Component {
     const items = this.state.items
     items.push(newItem)
     this.setState({
-      items: items
+      items: items,
+      newItem: ''
     })
     //console.log(items);
   }
@@ -53,14 +54,26 @@ class App extends Component {
             type="text" 
             className="form-control mt-3" 
             placeholder="Add grocery"
-            onChange={this.inputHandler}/>
+            onChange={this.inputHandler}
+            value={this.state.newItem}/>
         </div>
         <button 
           type="button" 
-          className="btn btn-lg btn-block btn-primary"
+          className="btn mb-3 btn-lg btn-block btn-primary"
           onClick={this.itemAdding}>
             Primary
         </button>
+        
+        <ul className="list-group">
+            {this.state.items.map((item) => {
+              return <li 
+                        key={item.id}  
+                        className="list-group-item"
+                      >{item.name}</li>
+            })}          
+        </ul>
+        
+        
       </div>
       
     )
