@@ -5,6 +5,7 @@ class App extends Component {
   state = {
     newItem: '',
     update: false,
+    updateIndex: null,
     items: [
       {
         id: 1,
@@ -55,11 +56,27 @@ class App extends Component {
     })
   }
   
-  updateItem = (index) => {
-    //const theItem = this.state.items[index]
-    //console.log(theItem);
+  editItem = (index) => {
+    const theItem = this.state.items[index]
+    //console.log(theItem.name);
     this.setState({
-      update: true
+      update: true,
+      newItem: theItem.name,
+      updateIndex: index
+    })
+  }
+  
+  UpdateItem = () => {
+    const item = this.state.items[this.state.updateIndex]
+    //console.log(item);
+    item.name = this.state.newItem
+    //console.log(item.name);
+    const items = this.state.items
+    items[this.state.updateIndex] = item
+    this.setState({
+      items,
+      update: false,
+      updateIndex: null
     })
   }
   
@@ -77,32 +94,31 @@ class App extends Component {
         <button 
           type="button" 
           className="btn mb-3 btn-lg btn-block btn-info"
-          onClick={this.itemAdding}>
+          onClick={this.state.update ? this.UpdateItem : this.itemAdding}>
             {this.state.update ? "Update item" : "Add Grocery"}
         </button>
-        
-        <ul className="list-group">
-            {this.state.items.map((item, index) => {
-              return <li               
-                        key={item.id}  
-                        className="list-group-item"
-                     >
-                        <button 
-                          type="button" 
-                          className="btn mr-3 btn-danger"
-                          onClick={() => {this.deleteItem(item)}}>
-                            <span className="glyphicon glyphicon-trash"></span>
-                        </button>      
-                            {item.name}
-                        <button 
-                          type="button" 
-                          className="btn ml-3 btn-info"
-                          onClick={() => {this.updateItem(index)}}>
-                            <span className="glyphicon glyphicon-pencil"></span>
-                        </button>  
-                     </li>                    
-            })}          
-        </ul>        
+          {!this.state.update ? <ul className="list-group">
+              {this.state.items.map((item, index) => {
+                return <li               
+                          key={item.id}  
+                          className="list-group-item"
+                       >
+                          <button 
+                            type="button" 
+                            className="btn mr-3 btn-danger"
+                            onClick={() => {this.deleteItem(item)}}>
+                              <span className="glyphicon glyphicon-trash"></span>
+                          </button>      
+                              {item.name}
+                          <button 
+                            type="button" 
+                            className="btn ml-3 btn-info"
+                            onClick={() => {this.editItem(index)}}>
+                              <span className="glyphicon glyphicon-pencil"></span>
+                          </button>  
+                       </li>                    
+              })}          
+          </ul> : null }
       </div>
       
     )
