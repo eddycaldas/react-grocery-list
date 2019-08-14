@@ -33,9 +33,18 @@ class App extends Component {
     })
   }
   
+  generateId = () => {
+    const theId = this.state.items[this.state.items.length - 1]
+    if (theId) {
+      return theId.id + 1
+    } else {
+      return 1
+    }
+  }
+  
   itemAdding = () => {
     const newItem = {
-      id: this.state.items[this.state.items.length - 1].id + 1,
+      id: this.generateId(),
       name: this.state.newItem
     }
     //console.log(newItem);
@@ -76,7 +85,8 @@ class App extends Component {
     this.setState({
       items,
       update: false,
-      updateIndex: null
+      updateIndex: null,
+      newItem:''
     })
   }
   
