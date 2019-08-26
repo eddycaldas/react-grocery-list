@@ -57,6 +57,7 @@ class App extends Component {
       newItem: ''
     })
     //console.log(items);
+    this.alert('Item added')
   }
   
   deleteItem = (item) => {
@@ -121,6 +122,7 @@ class App extends Component {
         <button 
           type="button" 
           className="btn mb-3 btn-lg btn-block btn-info"
+          disabled={this.state.newItem.length < 4}
           onClick={this.state.update ? this.UpdateItem : this.itemAdding}>
             {this.state.update ? "Update item" : "Add Grocery"}
         </button>
