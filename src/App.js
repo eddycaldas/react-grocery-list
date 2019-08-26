@@ -6,6 +6,7 @@ class App extends Component {
   state = {
     newItem: '',
     update: false,
+    notification: null,
     updateIndex: null,
     items: [
       {
@@ -64,6 +65,7 @@ class App extends Component {
     this.setState({
       items: items
     })
+    this.alert('Item deleted')
   }
   
   editItem = (index) => {
@@ -89,12 +91,26 @@ class App extends Component {
       updateIndex: null,
       newItem:''
     })
+    this.alert('Item updated')
+  }
+
+  alert = (notification) => {
+    this.setState({ 
+      notification 
+    })
+    setTimeout(() => {
+      this.setState({ notification: null})
+    }, 1000)
   }
   
   render() {
     return(
-      <div className='container'>
-        <div className="input-group mb-3">
+      <div className='container mt-5'>
+        <div className="input-group mt-5 mb-3">
+          {this.state.notification &&
+            <div className="alert alert-primary text-center mt-5" role="alert">
+                {this.state.notification}
+            </div>}
           <input 
             type="text" 
             className="form-control mt-3" 
