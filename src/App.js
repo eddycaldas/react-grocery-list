@@ -2,32 +2,17 @@ import React, {Component} from 'react';
 import './App.css';
 import ListItem from './ListItem';
 
+const apiURL = 'https://5d640b6026046800144d7265.mockapi.io/grocery'
 class App extends Component {
+
   state = {
     newItem: '',
     update: false,
     notification: null,
     updateIndex: null,
-    items: [
-      {
-        id: 1,
-        name: 'milk'
-      },
-      {
-        id: 2,
-        name: 'bread'
-      },
-      {
-        id: 3,
-        name: 'cheese'
-      },
-      {
-        id: 4,
-        name: 'water'
-      }
-    ]
+    items: []
   }
-  
+
   inputHandler = (event) => {
     //console.log(event.target.value);
     this.setState({
@@ -103,6 +88,16 @@ class App extends Component {
       this.setState({ notification: null})
     }, 1000)
   }
+
+    async componentDidMount() {
+     const response = await fetch(apiURL);
+      const json = await response.json();
+      // console.log(json)
+      this.setState({
+        items: json
+      })
+  }
+
   
   render() {
     return(
